@@ -6,6 +6,10 @@ app.get("/", (req, res) => {
   res.send("Hello World!!");
 });
 
+app.get("/main", (req, res) => {
+  res.send("MAIN VIEW!!");
+});
+
 app.get("/preview", (req, res) => {
   res.send("PREVIEW!!");
 });
