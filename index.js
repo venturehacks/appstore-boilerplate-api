@@ -1,21 +1,47 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5555;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!!");
-});
+//Loads the handlebars module
+const handlebars = require("express-handlebars");
+//Sets our app to use the handlebars engine
+app.set("view engine", "handlebars");
+//Sets handlebars configurations (we will go through them later on)
+app.engine(
+  "handlebars",
+  handlebars({
+    layoutsDir: __dirname + "/views/layouts",
+  })
+);
 
-app.get("/main", (req, res) => {
-  res.send("MAIN VIEW!!");
+let token = null;
+const { getToken, getCount, setCount, get } = require("./api");
+
+app.use(express.static("public"));
+
+//Required View Pages
+app.get("/main", async (req, res) => {
+  token = await getToken();
+  const count = await getCount(token);
+  console.log({ token, count });
+  res.render("main", { token, count });
 });
 
 app.get("/preview", (req, res) => {
-  res.send("PREVIEW!!");
+  res.render("preview");
 });
 
 app.get("/results", (req, res) => {
-  res.send("RESULTS!!");
+  const leaderboard = get(token);
+  res.render("results", { leaderboard });
+});
+
+//Post routes
+app.get("/i", async (req, res) => {
+  const count = req.query?.count;
+  setCount(token, count);
+  submit(token, count);
+  res.json({ success: true });
 });
 
 app.listen(port, () => {
