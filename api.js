@@ -14,7 +14,7 @@ const getToken = function () {
 };
 
 const setCount = async function (token, value) {
-  await set(token, value, user_id);
+  await set(token, value, "11d09333-5d13-4881-a011-890a0787f044");
   return fetch("https://angel.dev/appstore/api/set", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -42,7 +42,7 @@ const submit = async function (token, value) {
     }),
   })
     .then((res) => res.json()) // expecting a json response
-    .then((json) => json.count);
+    .then((json) => json.value);
 };
 
 const getCount = function (token) {
@@ -94,7 +94,7 @@ const get = function (token) {
   })
     .then((res) => res.json()) // expecting a json response
     .then((json) => {
-      const leaderboard = json.leaderboard;
+      const leaderboard = json.leaderboard || {};
       const sortedLeaderboard = {};
 
       var keys = Object.keys(leaderboard);

@@ -15,7 +15,7 @@ app.engine(
 );
 
 let token = null;
-const { getToken, getCount, setCount, get } = require("./api");
+const { getToken, getCount, setCount, get, submit } = require("./api");
 
 app.use(express.static("public"));
 
