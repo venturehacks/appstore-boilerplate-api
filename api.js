@@ -1,7 +1,10 @@
 const fetch = require("node-fetch");
 
+const apiHost = 'https://angel.co';
+// const apiHost = 'https://angel.dev';
+
 const getToken = function () {
-  return fetch("https://angel.dev/appstore/api/auth", {
+  return fetch(`${apiHost}/appstore/api/auth`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -15,7 +18,7 @@ const getToken = function () {
 
 const setCount = async function (token, value) {
   await set(token, value, user_id);
-  return fetch("https://angel.dev/appstore/api/set", {
+  return fetch(`${apiHost}/appstore/api/set`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -31,7 +34,7 @@ const setCount = async function (token, value) {
 };
 
 const submit = async function (token, value) {
-  return fetch("https://angel.dev/appstore/api/submit", {
+  return fetch(`${apiHost}/appstore/api/submit`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -46,7 +49,7 @@ const submit = async function (token, value) {
 };
 
 const getCount = function (token) {
-  return fetch("https://angel.dev/appstore/api/get", {
+  return fetch(`${apiHost}/appstore/api/get`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -64,7 +67,7 @@ const set = async function (token, value, user_id) {
   const leaderboard = await get(token);
   leaderboard[user_id] = value;
 
-  return fetch("https://angel.dev/appstore/api/set", {
+  return fetch(`${apiHost}/appstore/api/set`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -81,7 +84,7 @@ const set = async function (token, value, user_id) {
 };
 
 const get = function (token) {
-  return fetch("https://angel.dev/appstore/api/get", {
+  return fetch(`${apiHost}/appstore/api/get`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
