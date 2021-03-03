@@ -4,9 +4,7 @@ const port = process.env.PORT || 5555;
 
 //Loads the handlebars module
 const handlebars = require("express-handlebars");
-//Sets our app to use the handlebars engine
 app.set("view engine", "handlebars");
-//Sets handlebars configurations (we will go through them later on)
 app.engine(
   "handlebars",
   handlebars({
@@ -14,33 +12,39 @@ app.engine(
   })
 );
 
-let token = null;
-const { getToken, getCount, setCount, get, submit } = require("./api");
-
+//Allow use of public folder.
 app.use(express.static("public"));
+
+//Import actions from out api file.
+const { getToken, getCount, setCount, get, submit } = require("./api");
 
 //Required View Pages
 app.get("/main", async (req, res) => {
-  token = await getToken();
-  const count = await getCount(token);
-  console.log({ token, count });
+  const uid = req.query?.uid;
+  const token = await getToken(uid);
+  const count = await getCount(token, uid);
   res.render("main", { token, count });
 });
 
 app.get("/preview", (req, res) => {
+  const uid = req.query?.uid;
   res.render("preview");
 });
 
 app.get("/results", (req, res) => {
-  const leaderboard = get(token);
+  const uid = req.query?.uid;
+  const token = await getToken(uid);
+  const leaderboard = get(token, uid);
   res.render("results", { leaderboard });
 });
 
 //Post routes
 app.get("/i", async (req, res) => {
+  const uid = req.query?.uid;
+  const token = await getToken(uid);
   const count = req.query?.count;
-  setCount(token, count);
-  submit(token, count);
+  setCount(token, count, uid);
+  submit(token, count, uid);
   res.json({ success: true });
 });
 
