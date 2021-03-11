@@ -17,6 +17,7 @@ Welcome, you have been chosen to create an application for the AngelList Appstor
   ```JSON
     {
       api_key: "<API_KEY>",
+      app_slug: "<String>"
       user_id: "<UUID>",
     }
   ```
@@ -54,6 +55,7 @@ Welcome, you have been chosen to create an application for the AngelList Appstor
     method: 'POST',
     body: {
       api_key: "<API_KEY>",
+      app_slug: "my_app",
       user_id: "<UUID>",
     }
   });
@@ -78,7 +80,6 @@ Welcome, you have been chosen to create an application for the AngelList Appstor
   ```JSON
     {
       token: "<TOKEN>",
-      user_id: "<UUID>",
       key: "my_key"
     }
   ```
@@ -105,7 +106,6 @@ Welcome, you have been chosen to create an application for the AngelList Appstor
     method: 'POST',
     body: {
       token: "<TOKEN>",
-      user_id: "<UUID>",
       key: "my_key",
     }
   });
@@ -130,7 +130,6 @@ Welcome, you have been chosen to create an application for the AngelList Appstor
   ```JSON
     {
       token: "<TOKEN>",
-      user_id: "<UUID>",
       key: "my_key",
       value: "my_value"
     }
@@ -158,7 +157,6 @@ Welcome, you have been chosen to create an application for the AngelList Appstor
     method: 'POST',
     body: {
       token: "<TOKEN>",
-      user_id: "<UUID>",
       key: "my_key",
       value: "my_value",
     }
